@@ -1,0 +1,31 @@
+﻿[
+  {
+    "Name": "WP",
+    "Description": "Whitepaper"
+  },
+  {
+    "Name": "LP",
+    "Description": "Landingpage"
+  },
+  {
+    "Name": "SC",
+    "Description": "Smartcontracts"
+  },
+  {
+    "Name": "PR",
+    "Description": "Presentation"
+  },
+  {
+    "Name": "Events",
+    "Description": "Events"
+  },
+  {
+    "Name": "Profile",
+    "Description": "User profile"
+  },
+  {
+    "Name": "Payment",
+    "Description": "Payment information"
+  }
+]
+

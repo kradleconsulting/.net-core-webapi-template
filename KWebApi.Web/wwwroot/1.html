@@ -1,0 +1,218 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <td>
+                Логин с <br />
+                {<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;Email:'me@json.me',<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;Password:'Very5tr@ngPwd'<br />
+                };<br />
+            </td>
+            <td>
+                <button id="loginbtn">/Account/Login</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Регистрация с <br />
+                {<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;Email:'me@json.me',<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;Password:'Very5tr@ngPwd'<br />
+                };<br />
+            </td>
+            <td>
+                <button id="registerbtn">/Account/Register</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Неверный логин с <br />
+                {<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;Email:'me@json.me',<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;Password:'badpwd'<br />
+                };<br />
+            </td>
+            <td>
+                <button id="wrongloginbtn">/Account/Login</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Получить юзера с <br />
+                Email = 'me@json.me'<br />
+            </td>
+            <td>
+                <button id="getuserbyemailbtn">/Account/GetUserByEmail</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Получить текущего юзера (куки) <br />
+               <br />
+            </td>
+            <td>
+                <button id="getcurruserbtn">/Account/GetCurrentUser</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                <button id="valuesgetbtn">GET /Values/</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                <button id="valuespostbtn">POST /Values/</button>
+            </td>
+        </tr>
+    </table>
+
+    <script src="jquery.min.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            var url = 'http://localhost:3587/api/';
+            var tosend = '{Email:\'me@json.me\',Password:\'Very5tr@ngPwd\'};';
+            var tosendwrong = '{Email:\'me@json.me\',Password:\'badpwd\'};';
+            var tosendemail = '{Email:\'me@json.me\'};';
+
+            $('#loginbtn').on('click', function () {
+                $.ajax({
+                    'url': url + 'Account/Login',
+                    'type': 'POST',
+                    'contentType': 'application/json',
+                    'dataType': 'json',
+                    'data': tosend,
+                    'xhrFields': {  // this is used on client side to make cross-domain request
+                        withCredentials: true // while server side has to add access-control-allow-origin and (sic!) access-control-allow-credentials
+                    },
+                    //'beforeSend': function(xhr){
+                    //	xhr.withCredentials = true;
+                    //},
+                    'crossDomain': 'true', // this is used on client side to make cross-domain request
+                    'success': function (r) {
+                        console.log('ajax success \nmessage=' + r.message)
+                    },
+                    'error': function (r) {
+                        console.log('ajax error' + r)
+                    }
+
+                })
+            });
+
+            $('#wrongloginbtn').on('click', function () {
+                $.ajax({
+                    'url': url + 'Account/Login',
+                    'type': 'POST',
+                    'contentType': 'application/json',
+                    'dataType': 'json',
+                    'data': tosendwrong,
+                    'success': function (r) {
+                        console.log('ajax success \nmessage=' + r.message)
+                    },
+                    'error': function (r) {
+                        console.log('ajax error' + r)
+                    }
+
+                })
+            });
+
+            $('#registerbtn').on('click', function () {
+                $.ajax({
+                    'url': url + 'Account/Register',
+                    'type': 'POST',
+                    'contentType': 'application/json',
+                    'dataType': 'json',
+                    'data': tosend,
+                    'success': function (r) {
+                        console.log('ajax success \nmessage=' + r.message)
+                    },
+                    'error': function (r) {
+                        console.log('ajax error' + r)
+                    }
+
+                })
+            });
+
+            $('#getuserbyemailbtn').on('click', function () {
+                $.ajax({
+                    'url': url + 'Account/GetUserByEmail',
+                    'type': 'POST',
+                    'contentType': 'application/json',
+                    'dataType': 'json',
+                    'data': tosendemail,
+                    'success': function (r) {
+                        console.log('ajax success \nobject=' + r)
+                    },
+                    'error': function (r) {
+                        console.log('ajax error' + r)
+                    }
+
+                })
+            });
+
+            $('#getcurruserbtn').on('click', function () {
+                $.ajax({
+                    'url': url + 'Account/GetCurrentUser',
+                    'type': 'POST',
+                    'contentType': 'application/json',
+                    'success': function (r) {
+                        console.log('ajax success \nobject=' + JSON.stringify(r))
+                    },
+                    'error': function (r) {
+                        console.log('ajax error' + r)
+                    }
+                })
+            });
+
+            $('#valuesgetbtn').on('click', function () {
+
+                $.ajax({
+                    'url': url + 'values',
+                    'type': 'POST',
+                    'contentType': 'text',
+                    'data': 'asdasd',
+                    'success': function (r) {
+                        console.log('Success! ' + r)
+                    },
+                    'error': function (r) {
+                        console.log('Error!' + r)
+                    }
+
+                })
+            })
+
+            $('#valuespostbtn').on('click', function () {
+
+                $.ajax({
+                    'url': url + 'values',
+                    'type': 'POST',
+                    'contentType': 'text',
+                    'data': 'asdasd',
+                    'success': function (r) {
+                        console.log('Success! ' + r)
+                    },
+                    'error': function (r) {
+                        console.log('Error!' + r)
+                    }
+
+                })
+            })
+
+
+        })
+    </script>
+</body>
+</html>
